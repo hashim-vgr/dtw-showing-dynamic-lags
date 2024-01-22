@@ -30,7 +30,7 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
 
 
 
-    //// ..........error matrix
+    //// calculating error matrix (error matrix gives the errors between samples (refer readme file)
     for (int n = 0; n < N; n++) {
         for (int m = -L; m <= L; m++) {
             int index = n + m;
@@ -46,7 +46,7 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
         }
     }
 
-    ////accumulating
+    ////accumulating the errors in the error matrix along indexes H,2H,3H..
     int qu, ql, k, p, q, height, j, i;
     double slope, currentMinPath = INFINITY, newMinPath = 0.0000;
 
@@ -76,7 +76,7 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
         }
     }
 
-    ////backtracking
+    ////backtracking through accumulated errors
     double* a= (double*)malloc(N/H * sizeof(double));
     int minIndex=0;
     double min = e[0][N -1];
