@@ -29,8 +29,8 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
     }
 
 
-
-    //// calculating error matrix (error matrix gives the errors between samples (refer readme file)
+    // step 2 (refer readme file)
+    //// calculating error matrix (error matrix gives the errors between samples 
     for (int n = 0; n < N; n++) {
         for (int m = -L; m <= L; m++) {
             int index = n + m;
@@ -45,7 +45,7 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
 
         }
     }
-
+    // step 3 (refer readme file)
     ////accumulating the errors in the error matrix along indexes H,2H,3H..
     int qu, ql, k, p, q, height, j, i;
     double slope, currentMinPath = INFINITY, newMinPath = 0.0000;
@@ -75,7 +75,7 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
             currentMinPath = INFINITY;
         }
     }
-
+    // step 4 (refer readme file)
     ////backtracking through accumulated errors
     double* a= (double*)malloc(N/H * sizeof(double));
     int minIndex=0;
@@ -121,9 +121,10 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
     }
     free(e);
 
+    // step 5 (refer readme file)
     ///interpolation of lag[]
     //this code interpolates the lags to the same number of samples as the  time series
-    /** Step 0 */
+
 
     int n=N/H;
 
@@ -145,40 +146,36 @@ int dtw(double* s1, double* s2, int length, int window, int skip,double* lags)
 
     for (i = 0; i < n + 1; ++i) x[i]=i;
 
-    /** Step 1 */
+   
     for (i = 0; i <= n - 1; ++i) h[i] = x[i + 1] - x[i];
 
-    /** Step 2 */
+  
     for (i = 1; i <= n - 1; ++i)
         A[i] = 3 * (a[i + 1] - a[i]) / h[i] - 3 * (a[i] - a[i - 1]) / h[i - 1];
 
-    /** Step 3 */
+    
     l[0] = 1;
     u[0] = 0;
     z[0] = 0;
 
-    /** Step 4 */
+    
     for (i = 1; i <= n - 1; ++i) {
         l[i] = 2 * (x[i + 1] - x[i-1]) - h[i - 1] * u[i - 1];
         u[i] = h[i] / l[i];
         z[i] = (A[i] - h[i - 1] * z[i - 1]) / l[i];
     }
 
-    /** Step 5 */
+    
     l[n] = 1;
     z[n] = 0;
     c[n] = 0;
 
-    /** Step 6 */
+    
     for (j = n - 1; j >= 0; --j) {
         c[j] = z[j] - u[j] * c[j + 1];
         b[j] = (a[j + 1] - a[j]) / h[j] - h[j] * (c[j + 1] + 2 * c[j]) / 3;
         di[j] = (c[j + 1] - c[j]) / (3 * h[j]);
     }
-
-    /** Step 7 */
-
-
 
 // Evaluate cubic spline equation at interpolated x values
     for (i = 0; i < N; ++i) {
@@ -247,18 +244,19 @@ int main() {
 
 
     double* lags= (double*)malloc(MAX_N * sizeof(double));
-
+    
+    //calling dtw function
     dtw(s1,s2,MAX_N,MAX_L,MAX_H,lags);
 
     ///saving lags  to a file
     FILE *fp = fopen("newlags.txt", "w");
-
     if (fp != NULL) {
         for (int i = 0; i < MAX_N; i++) {
             fprintf(fp, "%f ", lags[i]);
         }
         fclose(fp);
     }
+    // you can plot to the newlags.txt with matplotlib to see the dynamic lags
 
     free(s1);
     free(s2);
