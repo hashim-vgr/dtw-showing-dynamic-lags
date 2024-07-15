@@ -1,9 +1,12 @@
 # DTW-Showing-Dynamic-Lags
-DTW is a method to quantify the similarity between two time series or sequences exhibiting a certain likeness but may vary in speed and amplitude. 
+## About the Project
+This is done as part of the Blood Pulse Cycle Cutting project during an academic research internship under the Healthcare Technology Innovation Center (HTIC) at IIT Madras. The team members include Hashim P, Ayisha Jumaila TP, and Ajisha T, under the guidance of Dr. Nabeel PM (Lead Research Scientist, HTIC IITM) and Mr. Raj Kiran V (Project Scientist). We thank them for their guidance and support.
 
-DTW can be used to calculate the similarites between 2 times series.
+DTW (Dynamic Time Warping) is a method to quantify the similarity between two time series or sequences exhibiting a certain likeness but may vary in speed and amplitude. DTW can be used to calculate the similarities between two time series.
 
-But here i'm showing how to use it to calculate the dynamic lags between two time series signals.
+But here We're showing how to use it to calculate the dynamic lags between two time series signals.
+
+
  ## what are dynamic lags?
  
 <img width="842" alt="image" src="https://github.com/hashim-vgr/dtw-showing-dynamic-lags/assets/90979621/b3a56f5c-e114-4a4c-9148-af851cae5327">
