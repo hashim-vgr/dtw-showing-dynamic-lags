@@ -1,4 +1,4 @@
-# dtw-showing-dynamic-lags
+# DTW-Showing-Dynamic-Lags
 DTW is a method to quantify the similarity between two time series or sequences exhibiting a certain likeness but may vary in speed and amplitude. 
 
 DTW can be used to calculate the similarites between 2 times series.
